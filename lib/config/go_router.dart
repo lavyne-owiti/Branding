@@ -1,3 +1,4 @@
+import 'package:branding/core/shared/feature.dart';
 import 'package:branding/features/auth/presentation/screens/splash_screen.dart';
 import 'package:branding/features/features.dart';
 import 'package:flutter/material.dart';

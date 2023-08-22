@@ -2,6 +2,8 @@ import 'package:branding/features/auth/presentation/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../widgets/account_type_select.dart';
+
 class SignUpScreen extends StatefulWidget {
   static String routePath = "/signup";
   const SignUpScreen({super.key});
@@ -135,6 +137,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     return null;
                   },
                 ),
+               const AccountTypeSelectView(),
                 const SizedBox(height: 40),
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(

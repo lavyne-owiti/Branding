@@ -1,8 +1,9 @@
 
-import 'package:branding/features/features.dart';
 import 'package:branding/features/supplier/presentation/screens/home_screen.dart';
 import 'package:branding/features/supplier/presentation/screens/suppliers_screen.dart';
 import 'package:go_router/go_router.dart';
+
+import '../../core/core.dart';
 
 class SupplierFeature extends Feature {
   @override

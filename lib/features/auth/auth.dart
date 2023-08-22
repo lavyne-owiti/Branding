@@ -1,12 +1,7 @@
-import 'package:branding/features/auth/presentation/screens/forget_password.dart';
-import 'package:branding/features/auth/presentation/screens/onboarding_screens.dart';
-import 'package:branding/features/auth/presentation/screens/singup_screen.dart';
-import 'package:branding/features/auth/presentation/screens/splash_screen.dart';
-import 'package:branding/features/auth/presentation/screens/welcome_screen.dart';
-import 'package:branding/features/features.dart';
-import 'package:go_router/go_router.dart';
+import 'package:branding/core/core.dart';
+import 'package:branding/features/auth/presentation/screens/screens.dart';
 
-import 'presentation/screens/login_screen.dart';
+import 'package:go_router/go_router.dart';
 
 class AuthFeature extends Feature {
   @override
