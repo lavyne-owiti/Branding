@@ -1,54 +1,80 @@
+import 'dart:developer';
+
+import 'package:branding/features/auth/presentation/controllers/account_type_controller.dart';
+import 'package:branding/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:branding/features/auth/presentation/screens/login_screen.dart';
+import 'package:branding/features/auth/presentation/state/auth_state.dart';
+import 'package:branding/features/supplier/presentation/screens/home_screen.dart';
+import 'package:branding/features/supplier/presentation/screens/suppliers_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../widgets/account_type_select.dart';
 
-class SignUpScreen extends StatefulWidget {
+class SignUpScreen extends ConsumerStatefulWidget {
   static String routePath = "/signup";
   const SignUpScreen({super.key});
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  ConsumerState<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final nameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  // Future signIn() async {
-  //   if (_formKey.currentState!.validate()) {
-  //     showDialog(
-  //       context: context,
-  //       barrierDismissible: false,
-  //       builder: (context) => const Center(
-  //         child: CircularProgressIndicator(),
-  //       ),
-  //     );
-  //   }
-  //   try {
-  //     await FirebaseAuth.instance.signInWithEmailAndPassword(
-  //       email: emailController.text.trim(),
-  //       password: passwordController.text.trim(),
-  //     );
-  //   } on FirebaseAuthException catch (e) {
-  //     log('$e');
+  Future signUp() async {
+    if (_formKey.currentState!.validate()) {
+      var authController = ref.watch(authStateProvider.notifier);
+      var accoutType = ref.watch(accountTypeProvider);
+      var authState = ref.watch(authStateProvider);
 
-  //   }
+      if (authState is Registering && accoutType.name == 'business') {
+        authController.register(
+          email: emailController.text,
+          name: nameController.text,
+          password: passwordController.text,
+          accountType: accoutType.name,
+        );
+        log('message is from creen ${emailController.text}');
+        log('message is from creen ${nameController.text}');
+        log('message is from creen ${passwordController.text}');
+        log('message is from creen ${accoutType.name}');
 
-  // }
+        context.go(SuppliersScreen.routePath);
+      } else {
+        context.go(HomeScreen.routePath);
+      }
+
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => const Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+  }
 
   @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
+    nameController.dispose();
 
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(authStateProvider, (previous, state) {
+      if (state is RegistrationError) {
+        state.failure;
+      }
+    });
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -86,7 +112,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     )),
                 const SizedBox(height: 24),
                 TextFormField(
-                  controller: emailController,
+                  controller: nameController,
                   textInputAction: TextInputAction.next,
                   decoration: const InputDecoration(
                     labelText: 'Name',
@@ -95,6 +121,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     border: OutlineInputBorder(),
                   ),
                   autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (name) {
+                    if (name == null || name.isEmpty) {
+                      return 'Name is required';
+                    }
+                    return null;
+                  },
                 ),
                 const SizedBox(height: 8),
                 TextFormField(
@@ -137,12 +169,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     return null;
                   },
                 ),
-               const AccountTypeSelectView(),
+                const AccountTypeSelectView(),
                 const SizedBox(height: 40),
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         minimumSize: const Size.fromHeight(35)),
-                    onPressed: () {},
+                    onPressed: signUp,
                     child: const Text(
                       'SINGUP',
                     )),

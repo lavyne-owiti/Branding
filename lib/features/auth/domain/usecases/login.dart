@@ -1,7 +1,9 @@
 
 import 'package:dartz/dartz.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/core.dart';
+import '../../data/repositories/auth_repositoryImpl.dart';
 import '../entity/user.dart';
 import '../repositories/auth_repository.dart';
 
@@ -29,3 +31,10 @@ class LoginParams {
     required this.password,
   });
 }
+
+
+final loginUseCaseProvider = Provider.autoDispose<Login>((ref) {
+  return Login(
+    repository: ref.watch(authRepositoryProvider),
+  );
+});

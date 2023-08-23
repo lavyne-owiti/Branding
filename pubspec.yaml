@@ -48,13 +48,13 @@ dependencies:
   go_router: ^6.5.3
   firebase_core: ^2.15.0
   firebase_auth: ^4.7.2
-  cloud_firestore: ^4.4.4
+  cloud_firestore: ^4.3.0
   shared_preferences: ^2.0.18
   intl: any
   flutter_screwdriver: ^3.0.0
   dartz: ^0.10.1
   hive: ^2.2.3
-  connecteo: ^1.0.2
+  connecteo: ^1.1.1
 
 
 

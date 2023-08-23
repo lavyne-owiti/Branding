@@ -14,7 +14,6 @@ class AuthController extends StateNotifier<AuthState> {
     required this.logoutUseCase,
   }) : super(LoginInitial());
 
-
   void login({
     required String email,
     required String password,
@@ -22,7 +21,7 @@ class AuthController extends StateNotifier<AuthState> {
     state = LoggingIn();
 
     final response = await loginUseCase(LoginParams(
-       email: email,
+      email: email,
       password: password,
     ));
 
@@ -39,7 +38,7 @@ class AuthController extends StateNotifier<AuthState> {
     required String name,
     required String email,
     required String password,
-    required String userType,
+    required String accountType,
   }) async {
     state = Registering();
 
@@ -47,7 +46,7 @@ class AuthController extends StateNotifier<AuthState> {
       name: name,
       email: email,
       password: password,
-      userType: userType,
+      accountType: accountType,
     ));
 
     response.fold((failure) {
@@ -67,3 +66,12 @@ class AuthController extends StateNotifier<AuthState> {
     });
   }
 }
+
+final authStateProvider =
+    StateNotifierProvider.autoDispose<AuthController, AuthState>((ref) {
+  return AuthController(
+    registerUseCase: ref.watch(registerUseCaseProvider),
+    loginUseCase: ref.watch(loginUseCaseProvider),
+    logoutUseCase: ref.watch(logOutUseCaseProvider),
+  );
+});

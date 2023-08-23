@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:branding/core/core.dart';
 import 'package:branding/core/network/network_info.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../model/user_model.dart';
 
@@ -15,8 +18,10 @@ abstract class AuthRemoteDataSource {
     String name,
     String email,
     String password,
+    String accountType,
   );
   Future<void> getUsers(String accountType);
+  Future<void> logout();
 }
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
@@ -30,6 +35,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   @override
   Future<UserModel> loginWithEmail(String email, String password) async {
     return handleErrors<UserModel>(() async {
+      if (!await networkInfo.isConnected) throw NetworkException();
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
 
@@ -45,14 +51,18 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
   @override
   Future<void> registerAccount(
-      String name, String email, String password) async {
+      String name, String email, String password, String accountType) async {
+    log('message on top');
     return handleErrors<void>(() async {
+      log('message is remote db $name,$email,$password,$accountType');
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
       await userCollection.doc(email).set({
         'name': name,
         'email': email,
+        'accountType': accountType,
       });
+      log('message $userCollection');
     });
   }
 
@@ -66,7 +76,19 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       querySnapshot.docs
           .map((doc) => UserModel.fromJson(doc.data() as Map<String, dynamic>))
           .toList();
+    });
+  }
 
+  @override
+  Future<void> logout() async {
+    return handleErrors<void>(() async {
+      await FirebaseAuth.instance.signOut();
     });
   }
 }
+
+final authRemoteDataSourceProvider = Provider<AuthRemoteDataSource>((ref) {
+  return AuthRemoteDataSourceImpl(
+    networkInfo: ref.watch(networkInfoProvider),
+  );
+});
