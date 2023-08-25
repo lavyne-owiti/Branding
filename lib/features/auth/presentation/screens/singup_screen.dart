@@ -4,8 +4,8 @@ import 'package:branding/features/auth/presentation/controllers/account_type_con
 import 'package:branding/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:branding/features/auth/presentation/screens/login_screen.dart';
 import 'package:branding/features/auth/presentation/state/auth_state.dart';
-import 'package:branding/features/supplier/presentation/screens/home_screen.dart';
-import 'package:branding/features/supplier/presentation/screens/suppliers_screen.dart';
+import 'package:branding/features/product/presentation/screens/home_screen.dart';
+import 'package:branding/features/product/presentation/screens/suppliers_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -30,32 +30,18 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
     if (_formKey.currentState!.validate()) {
       var authController = ref.watch(authStateProvider.notifier);
       var accoutType = ref.watch(accountTypeProvider);
-      var authState = ref.watch(authStateProvider);
 
-      if (authState is Registering && accoutType.name == 'business') {
-        authController.register(
-          email: emailController.text,
-          name: nameController.text,
-          password: passwordController.text,
-          accountType: accoutType.name,
-        );
-        log('message is from creen ${emailController.text}');
-        log('message is from creen ${nameController.text}');
-        log('message is from creen ${passwordController.text}');
-        log('message is from creen ${accoutType.name}');
-
+      authController.register(
+        email: emailController.text,
+        name: nameController.text,
+        password: passwordController.text,
+        accountType: accoutType.name,
+      );
+      if (accoutType.name == 'business') {
         context.go(SuppliersScreen.routePath);
-      } else {
+      } else if (accoutType.name == 'individual') {
         context.go(HomeScreen.routePath);
       }
-
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (context) => const Center(
-          child: CircularProgressIndicator(),
-        ),
-      );
     }
   }
 
@@ -73,6 +59,15 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
     ref.listen(authStateProvider, (previous, state) {
       if (state is RegistrationError) {
         state.failure;
+      }
+      if (state is Registering) {
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) => const Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
       }
     });
     return Scaffold(

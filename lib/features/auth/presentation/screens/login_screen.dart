@@ -2,55 +2,74 @@ import 'dart:developer';
 
 import 'package:branding/features/auth/presentation/screens/forget_password.dart';
 import 'package:branding/features/auth/presentation/screens/singup_screen.dart';
+import 'package:branding/features/auth/presentation/state/auth_state.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class LoginScreen extends StatefulWidget {
+import '../../../product/presentation/screens/home_screen.dart';
+import '../../../product/presentation/screens/suppliers_screen.dart';
+import '../controllers/account_type_controller.dart';
+import '../controllers/auth_controller.dart';
+
+class LoginScreen extends ConsumerStatefulWidget {
   static String routePath = "/login";
   const LoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends ConsumerState<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  // Future signIn() async {
-  //   if (_formKey.currentState!.validate()) {
-  //     showDialog(
-  //       context: context,
-  //       barrierDismissible: false,
-  //       builder: (context) => const Center(
-  //         child: CircularProgressIndicator(),
-  //       ),
-  //     );
-  //   }
-  //   try {
-  //     await FirebaseAuth.instance.signInWithEmailAndPassword(
-  //       email: emailController.text.trim(),
-  //       password: passwordController.text.trim(),
-  //     );
-  //   } on FirebaseAuthException catch (e) {
-  //     log('$e');
+  Future login() async {
+    if (_formKey.currentState!.validate()) {
+      var authController = ref.watch(authStateProvider.notifier);
+      // var accountType = ref.watch(accountTypeProvider);
 
-  //   }
-
-  // }
+      authController.login(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+      // if (accountType != AccountType.individual) {
+      //   context.go(SuppliersScreen.routePath);
+      // } else {
+      //   context.go(HomeScreen.routePath);
+      // }
+    }
+  }
 
   @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
-
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(authStateProvider, (previous, state) {
+      if (state is LoginError) {
+        state.failure;
+      }
+      if (state is LoggingIn) {
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) => const Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
+        context.go(HomeScreen.routePath);
+      }
+      if (state is Authenticated) {
+        context.go(HomeScreen.routePath);
+      }
+    });
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -93,7 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     decoration: const InputDecoration(
                       labelText: 'Email',
                       prefixIcon: Icon(Icons.mail_outline),
-                      hintText: 'Email',
+                      // hintText: 'Email',
                     ),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (email) {
@@ -142,7 +161,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         minimumSize: const Size.fromHeight(35)),
-                    onPressed: () {},
+                    onPressed: login,
                     child: const Text(
                       'LOGIN',
                     )),

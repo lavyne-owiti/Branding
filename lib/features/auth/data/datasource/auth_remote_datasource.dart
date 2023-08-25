@@ -32,20 +32,24 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final CollectionReference userCollection =
       FirebaseFirestore.instance.collection('users');
 
+  final user = FirebaseAuth.instance.currentUser;
+
   @override
   Future<UserModel> loginWithEmail(String email, String password) async {
     return handleErrors<UserModel>(() async {
       if (!await networkInfo.isConnected) throw NetworkException();
-      await FirebaseAuth.instance
+      final authResult = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
 
-      final userDoc = await userCollection.doc(email).get();
-      if (userDoc.exists) {
-        final userData = userDoc.data() as Map<String, dynamic>;
-        return UserModel.fromJson(userData);
-      } else {
-        throw FirebaseException(message: 'User not found', plugin: '');
-      }
+      final uid = authResult.user!.uid;
+      final userDocSnapshot =
+          await FirebaseFirestore.instance.collection('users').doc(uid).get();
+      final userData = userDocSnapshot.data() as Map<String, dynamic>;
+      final userModel = UserModel.fromJson(userData);
+
+      return userModel;
+   
+
     });
   }
 
@@ -55,14 +59,14 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     log('message on top');
     return handleErrors<void>(() async {
       log('message is remote db $name,$email,$password,$accountType');
-      await FirebaseAuth.instance
+      var userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
-      await userCollection.doc(email).set({
+
+      await userCollection.doc(userCredential.user!.uid).set({
         'name': name,
         'email': email,
         'accountType': accountType,
       });
-      log('message $userCollection');
     });
   }
 

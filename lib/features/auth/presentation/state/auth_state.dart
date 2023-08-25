@@ -9,8 +9,6 @@ class LoggingIn extends AuthState {}
 
 class Registering extends AuthState {}
 
-class VerifyingPassword extends AuthState {}
-
 class RegistrationSuccessful extends AuthState {}
 
 class Authenticated extends AuthState {
