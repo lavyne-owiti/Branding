@@ -1,3 +1,4 @@
+import 'package:branding/features/product/presentation/screens/details_screen.dart';
 import 'package:branding/features/product/presentation/screens/home_screen.dart';
 import 'package:branding/features/product/presentation/screens/suppliers_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -26,6 +27,10 @@ class SupplierFeature extends Feature {
         GoRoute(
           path: SuppliersScreen.routePath,
           builder: (context, state) => const SuppliersScreen(),
+        ),
+         GoRoute(
+          path: DetailsScreen.routePath,
+          builder: (context, state) => const DetailsScreen(),
         ),
       ];
   // @override

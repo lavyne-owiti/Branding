@@ -1,4 +1,9 @@
+import 'package:branding/features/product/presentation/screens/details_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+import 'categories.dart';
+import 'products_card.dart';
 
 class ProductBody extends StatelessWidget {
   const ProductBody({super.key});
@@ -6,77 +11,40 @@ class ProductBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Explore',
-          style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Theme.of(context).primaryColor),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Text(
+            'Explore',
+            style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).primaryColor),
+          ),
         ),
-        Categories()
-      ],
-    );
-  }
-}
-
-class Categories extends StatefulWidget {
-  const Categories({super.key});
-
-  @override
-  State<Categories> createState() => _CategoriesState();
-}
-
-class _CategoriesState extends State<Categories> {
-  List<String> categories = [
-    'Products',
-    'Services',
-    'Crafts',
-    'Promotional Products'
-  ];
-  int selectedIndex = 0;
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4.0),
-      child: SizedBox(
-        height: 25,
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: categories.length,
-          itemBuilder: (context, index) => GestureDetector(
-            onTap: () {
-              setState(() {
-                selectedIndex = index;
-              });
-            },
+        const Categories(),
+        Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    categories[index],
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: selectedIndex == index
-                            ? Colors.black
-                            : Colors.grey),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 2),
-                    height: 2,
-                    width: 30,
-                    color: selectedIndex == index
-                        ? Colors.black
-                        : Colors.transparent,
-                  )
-                ],
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: GridView.builder(
+            itemCount: 20,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 0.90,
+                mainAxisSpacing: 5,
+                crossAxisSpacing: 10),
+            itemBuilder: (context, index) => GestureDetector(
+              onTap: () => context.push(DetailsScreen.routePath),
+              child: const ProductCard(
+                name: 'T-Shirt',
+                price: 400,
+                image: 'assets/images/productimg/t-shirt.jpg',
               ),
             ),
           ),
-        ),
-      ),
+        ))
+      ],
     );
   }
 }
