@@ -1,4 +1,8 @@
+import 'package:branding/features/product/presentation/widget/cart_counter.dart';
 import 'package:flutter/material.dart';
+
+import '../widget/color_and_size.dart';
+import '../widget/product_with_image.dart';
 
 class DetailsScreen extends StatelessWidget {
   static String routePath = "/details";
@@ -45,50 +49,45 @@ class DetailsBody extends StatelessWidget {
             height: size.height,
             child: Stack(children: [
               Container(
-                margin: EdgeInsets.only(top: size.height * 0.3),
-                height: 500,
-                decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(24),
-                      topRight: Radius.circular(24),
-                    )),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.0),
-                child: Column(
-                  children: [
-                    Text(
-                      'Calm Warm Experience',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    Text(
-                      'Cotton T-shirt',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    Row(
-                      children: [
-                        RichText(
-                            text: TextSpan(
-                          children: [
-                            TextSpan(text: 'Price\n'),
-                            TextSpan(
-                                text: '400.00', style: TextStyle(fontSize: 30))
-                          ],
-                        )),
-                        SizedBox(width: 20),
-                        Expanded(
-                            child: Image.asset(
-                          'assets/images/productimg/t-shirt plain.png',
-                          fit: BoxFit.fill,
-                        ))
-                      ],
-                    )
-                  ],
-                ),
+                  margin: EdgeInsets.only(top: size.height * 0.3),
+                  padding: EdgeInsets.only(
+                      top: size.height * 0.12, left: 20, right: 20),
+                  height: 500,
+                  decoration: BoxDecoration(
+                      color: Colors.grey[100],
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(24),
+                        topRight: Radius.circular(24),
+                      )),
+                  child: Column(
+                    children: [
+                      ColorAndSize(),
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 8.0),
+                        child: Text(
+                          'Check out our funk t shirt selection for the very best in unique or custom, handmade pieces from our clothing shops',
+                          style: TextStyle(height: 1.5),
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CardCart(),
+                          Container(
+                            padding: EdgeInsets.all(1),
+                            height: 32,
+                            width: 32,
+                            decoration: BoxDecoration(
+                                color: Colors.red, shape: BoxShape.circle),
+                            child: Icon(Icons.heart_broken),
+                          )
+                        ],
+                      ),
+                    ],
+                  )),
+              const ProductTileWithImage(
+                image: 'assets/images/productimg/t-shirt plain.png',
+                price: 400.00,
               )
             ]),
           )
