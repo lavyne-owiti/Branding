@@ -28,15 +28,16 @@ class _CardCartState extends State<CardCart> {
                   });
                 }
               },
-              child:const Icon(
+              child: const Icon(
                 Icons.remove,
+                color: Color(0xFF3D82AE),
               )),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: Text(
             numberOfItems.toString(),
-            style:const TextStyle(fontSize: 18),
+            style: const TextStyle(fontSize: 18),
           ),
         ),
         SizedBox(
@@ -52,8 +53,9 @@ class _CardCartState extends State<CardCart> {
                   numberOfItems++;
                 });
               },
-              child:const Icon(
+              child: const Icon(
                 Icons.add,
+                color: Color(0xFF3D82AE),
               )),
         ),
       ],

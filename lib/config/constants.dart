@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 const onboardingPage1color = Colors.white;
 const onboardingPage2color = Color(0xffD2D2F1);
@@ -32,3 +33,19 @@ const String onboardingPage3body =
 const String onboardingPage1counter = '1/3';
 const String onboardingPage2counter = '2/3';
 const String onboardingPage3counter = '3/3';
+
+final labels = [
+  'Payments',
+  'Messages',
+  'My Orders',
+  'About',
+  'Logout',
+];
+
+final icons = [
+  LucideIcons.bell,
+  LucideIcons.messagesSquare,
+  LucideIcons.shoppingBag,
+  LucideIcons.alertCircle,
+  LucideIcons.logOut,
+];

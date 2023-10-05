@@ -17,24 +17,29 @@ class ProductCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          padding: const EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            color: Colors.grey[100],
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: Image.asset(image),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4),
-          child: Text(
-            name,
-            style: const TextStyle(fontSize: 12),
-          ),
-        ),
-        Text(
-          price.toString(),
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-        )
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: Colors.grey[100],
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Image.asset(image),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 5),
+                  child: Text(
+                    name,
+                    style: const TextStyle(fontSize: 12),
+                  ),
+                ),
+                Text(
+                  price.toString(),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 12),
+                )
+              ],
+            )),
       ],
     );
   }

@@ -1,36 +1,27 @@
 import 'package:branding/features/product/presentation/screens/details_screen.dart';
-import 'package:branding/features/product/presentation/screens/home_screen.dart';
-import 'package:branding/features/product/presentation/screens/suppliers_screen.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:branding/features/product/presentation/screens/favourites_screen.dart';
+import 'package:branding/features/product/presentation/screens/products_screen.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/core.dart';
-import '../auth/presentation/controllers/auth_controller.dart';
-import '../auth/presentation/screens/screens.dart';
-import '../auth/presentation/state/state.dart';
 
-class SupplierFeature extends Feature {
+class ProductFeature extends Feature {
   @override
   List<GoRoute> get routes => [
         GoRoute(
-          path: HomeScreen.routePath,
-          builder: (context, state) => const HomeScreen(),
-          redirect: (context, state) {
-            final ref = ProviderScope.containerOf(context);
-            final authState = ref.read(authStateProvider);
-            if (authState is! Authenticated) {
-              return LoginScreen.routePath;
-            }
-            return null;
-          },
+          path: ProductScreen.routePath,
+          builder: (context, state) => const ProductScreen(),
+         
         ),
+      
         GoRoute(
-          path: SuppliersScreen.routePath,
-          builder: (context, state) => const SuppliersScreen(),
-        ),
-         GoRoute(
           path: DetailsScreen.routePath,
           builder: (context, state) => const DetailsScreen(),
+        ),
+        
+            GoRoute(
+          path: FavouritesScreen.routePath,
+          builder: (context, state) => const FavouritesScreen(),
         ),
       ];
   // @override

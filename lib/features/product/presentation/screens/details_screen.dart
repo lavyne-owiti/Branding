@@ -15,7 +15,7 @@ class DetailsScreen extends StatelessWidget {
       backgroundColor: Color(0xFF3D82AE),
       appBar: AppBar(
         backgroundColor: Color(0xFF3D82AE),
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
         elevation: 0,
         actions: [
           IconButton(
@@ -61,28 +61,82 @@ class DetailsBody extends StatelessWidget {
                       )),
                   child: Column(
                     children: [
-                      ColorAndSize(),
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 8.0),
+                      const ColorAndSize(),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 10.0),
                         child: Text(
                           'Check out our funk t shirt selection for the very best in unique or custom, handmade pieces from our clothing shops',
                           style: TextStyle(height: 1.5),
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          CardCart(),
-                          Container(
-                            padding: EdgeInsets.all(1),
-                            height: 32,
-                            width: 32,
-                            decoration: BoxDecoration(
-                                color: Colors.red, shape: BoxShape.circle),
-                            child: Icon(Icons.heart_broken),
-                          )
-                        ],
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 20.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const CardCart(),
+                            Container(
+                              padding: const EdgeInsets.all(8),
+                              height: 32,
+                              width: 32,
+                              decoration: const BoxDecoration(
+                                  color: Colors.red, shape: BoxShape.circle),
+                              child: Image.asset(
+                                'assets/images/productimg/heart.png',
+                                color: Colors.white,
+                              ),
+                            )
+                          ],
+                        ),
                       ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 20),
+                        child: Row(
+                          children: [
+                            Container(
+                              margin:const EdgeInsets.only(right: 20),
+                              height: 50,
+                              width: 50,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(18),
+                                  border: Border.all(
+                                    color:const Color(0xFF3D82AE),
+                                  )),
+                              child: IconButton(
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.shopping_cart_outlined,
+                                  color: Color(0xFF3D82AE),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: SizedBox(
+                                height: 50,
+                                child: TextButton(
+                                    style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                                Color(0xFF3D82AE)),
+                                        shape: MaterialStateProperty.all<
+                                                OutlinedBorder>(
+                                            RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        18)))),
+                                    onPressed: () {},
+                                    child: Text(
+                                      'Buy Now'.toUpperCase(),
+                                      style:const TextStyle(
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white),
+                                    )),
+                              ),
+                            )
+                          ],
+                        ),
+                      )
                     ],
                   )),
               const ProductTileWithImage(

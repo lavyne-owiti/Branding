@@ -1,4 +1,5 @@
 import 'package:branding/core/core.dart';
+import 'package:branding/features/auth/presentation/screens/logout_screen.dart';
 import 'package:branding/features/auth/presentation/screens/screens.dart';
 
 import 'package:go_router/go_router.dart';
@@ -30,6 +31,11 @@ class AuthFeature extends Feature {
           path: ForgotPasswordScreen.routePath,
           builder: (context, state) => const ForgotPasswordScreen(),
         ),
+         GoRoute(
+          path: LogoutScreen.routePath,
+          builder: (context, state) => const LogoutScreen(),
+        ),
+        
       ];
   // @override
   // Future<void> preregister() async {
