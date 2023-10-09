@@ -1,6 +1,7 @@
 import 'package:branding/features/auth/auth.dart';
 import 'package:branding/features/cart/cart.dart';
 import 'package:branding/features/home/home.dart';
+import 'package:branding/features/payment/payment.dart';
 import 'package:branding/features/suppliers/suppliers.dart';
 
 import '../core/shared/feature.dart';
@@ -11,6 +12,7 @@ List<Feature> features = [
   HomeFeature(),
   ProductFeature(),
   CartFeature(),
-  SuppliersFeature()
+  SuppliersFeature(),
+  PaymentsFeature(),
 
 ];

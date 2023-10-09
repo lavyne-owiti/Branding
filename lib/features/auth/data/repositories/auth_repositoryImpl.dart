@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:branding/core/errors/failures.dart';
 import 'package:branding/features/auth/data/datasource/auth_remote_datasource.dart';
 import 'package:branding/features/auth/data/mapper/user.dart';
 
@@ -44,7 +43,6 @@ class AuthRepositortyImpl extends AuthRepository {
 
   @override
   Future<Either<Failure, User>> getUser() {
-    // TODO: implement getUser
     throw UnimplementedError();
   }
 }

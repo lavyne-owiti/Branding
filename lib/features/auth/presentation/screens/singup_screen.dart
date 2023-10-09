@@ -1,11 +1,9 @@
-import 'dart:developer';
 
 import 'package:branding/features/auth/presentation/controllers/account_type_controller.dart';
 import 'package:branding/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:branding/features/auth/presentation/screens/login_screen.dart';
 import 'package:branding/features/auth/presentation/state/auth_state.dart';
 import 'package:branding/features/home/presentation/screens/home_screen.dart';
-import 'package:branding/features/product/presentation/screens/products_screen.dart';
 import 'package:branding/features/suppliers/presentation/screens/suppliers_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

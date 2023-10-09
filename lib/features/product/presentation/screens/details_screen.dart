@@ -12,9 +12,9 @@ class DetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF3D82AE),
+      backgroundColor:const Color(0xFF3D82AE),
       appBar: AppBar(
-        backgroundColor: Color(0xFF3D82AE),
+        backgroundColor:const Color(0xFF3D82AE),
         iconTheme: const IconThemeData(color: Colors.white),
         elevation: 0,
         actions: [
@@ -26,10 +26,10 @@ class DetailsScreen extends StatelessWidget {
             onPressed: () {},
             icon: const Icon(Icons.shopping_cart_outlined, color: Colors.white),
           ),
-          SizedBox(width: 10),
+         const SizedBox(width: 10),
         ],
       ),
-      body: DetailsBody(),
+      body:const DetailsBody(),
     );
   }
 }
@@ -117,7 +117,7 @@ class DetailsBody extends StatelessWidget {
                                     style: ButtonStyle(
                                         backgroundColor:
                                             MaterialStateProperty.all<Color>(
-                                                Color(0xFF3D82AE)),
+                                               const Color(0xFF3D82AE)),
                                         shape: MaterialStateProperty.all<
                                                 OutlinedBorder>(
                                             RoundedRectangleBorder(

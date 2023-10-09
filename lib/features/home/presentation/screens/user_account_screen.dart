@@ -1,6 +1,10 @@
 import 'package:branding/config/constants.dart';
+import 'package:branding/features/home/presentation/screens/about_screen.dart';
+import 'package:branding/features/payment/presentation/screens/messages_screen.dart';
+import 'package:branding/features/payment/presentation/screens/payments_screen.dart';
+import 'package:branding/features/product/presentation/screens/my_orders_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:lucide_icons/lucide_icons.dart';
+import 'package:go_router/go_router.dart';
 
 class UserAccountScreen extends StatelessWidget {
   static String routePath = '/user-account';
@@ -20,7 +24,7 @@ class UserAccountScreen extends StatelessWidget {
                   SizedBox(
                     height: 250.0,
                     child: Image.asset(
-                      'assets/images/laptopchair.jpg',
+                      'assets/images/background.jpg',
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -58,7 +62,27 @@ class UserAccountScreen extends StatelessWidget {
                     title: Text(
                       labels[index],
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      switch (labels[index]) {
+                        case 'Payments':
+                          context.push(PaymentsScreen.routePath);
+                          break;
+                        case 'Messages':
+                          context.push(MessagesScreen.routePath);
+                          break;
+                        case 'My Orders':
+                          context.push(MyOrdersScreen.routePath);
+                          break;
+                        case 'About':
+                          context.push(AboutScreen.routePath);
+                          break;
+                        case 'Logout':
+                          signOutDrawer(context);
+                          break;
+                        default:
+                          break;
+                      }
+                    },
                   );
                 }),
           ),
@@ -66,4 +90,69 @@ class UserAccountScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+void signOutDrawer(BuildContext context) {
+  showModalBottomSheet(
+      isDismissible: false,
+      context: context,
+      builder: (context) {
+        return Container(
+          color: Theme.of(context).primaryColor,
+          height: 150.0,
+          padding:const EdgeInsets.symmetric(horizontal: 32.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+            const  Text(
+                'Are you sure you want Logout ?',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: MaterialButton(
+                      color: Colors.white,
+                      child: Text(
+                        'Logout',
+                        style: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      onPressed: () => Navigator.of(context).pop(),
+                    ),
+                  ),
+               const   SizedBox(
+                    width: 20.0,
+                  ),
+                  Expanded(
+                    child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        side:const BorderSide(color: Colors.white),
+                        backgroundColor: Theme.of(context).primaryColor,
+                      ),
+                      child:const Text(
+                        'Cancel',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      onPressed: () => Navigator.of(context).pop(),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
+      });
 }

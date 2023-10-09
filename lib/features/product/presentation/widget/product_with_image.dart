@@ -36,7 +36,7 @@ class ProductTileWithImage extends StatelessWidget {
                 children: [
                   const TextSpan(text: 'Price\n'),
                   TextSpan(
-                      text: price.toString(), style: TextStyle(fontSize: 30))
+                      text: price.toString(), style:const TextStyle(fontSize: 30))
                 ],
               )),
               // SizedBox(width: 20),

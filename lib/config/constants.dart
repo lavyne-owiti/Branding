@@ -49,3 +49,12 @@ final icons = [
   LucideIcons.alertCircle,
   LucideIcons.logOut,
 ];
+
+final paymentLabels = [
+  'Cash on delivery',
+  'Mpesa',
+];
+final paymentIcons = [
+  LucideIcons.banknote,
+  LucideIcons.smartphone,
+];
