@@ -1,8 +1,8 @@
 import 'package:branding/features/product/presentation/screens/details_screen.dart';
+import 'package:branding/features/product/presentation/widget/products_card.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'products_card.dart';
 
 class ProductBody extends StatelessWidget {
   const ProductBody({super.key});

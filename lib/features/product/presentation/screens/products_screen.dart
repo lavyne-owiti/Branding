@@ -1,4 +1,4 @@
-import 'package:branding/features/product/presentation/widget/categories.dart';
+// import 'package:branding/features/product/presentation/widget/categories.dart';
 import 'package:branding/features/product/presentation/widget/products_body.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +21,7 @@ class ProductScreen extends StatelessWidget {
         //         color: Theme.of(context).primaryColor),
         //   ),
         // ),
-         Categories(),
+        //  Categories(),
          Expanded(child: ProductBody()),
       ],
     ));

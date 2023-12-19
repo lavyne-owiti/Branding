@@ -1,3 +1,5 @@
+import 'package:branding/features/suppliers/presentation/screens/add_product.dart';
+import 'package:branding/features/suppliers/presentation/screens/all_added_products_screen.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/core.dart';
@@ -10,6 +12,15 @@ class SuppliersFeature extends Feature {
           path: SuppliersScreen.routePath,
           builder: (context, state) => const SuppliersScreen(),
         ),
+         GoRoute(
+          path: AddProductScreen.routePath,
+          builder: (context, state) => const AddProductScreen(),
+        ),
+          GoRoute(
+          path: AllAddedProducts.routePath,
+          builder: (context, state) => const AllAddedProducts(),
+        ),
+        
       ];
   // @override
   // Future<void> preregister() async {

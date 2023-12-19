@@ -1,3 +1,4 @@
+import 'dart:developer';
 
 import 'package:branding/features/auth/presentation/screens/forget_password.dart';
 import 'package:branding/features/auth/presentation/screens/singup_screen.dart';
@@ -7,7 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-
+import '../../../suppliers/presentation/screens/suppliers_screen.dart';
+import '../controllers/account_type_controller.dart';
 import '../controllers/auth_controller.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
@@ -26,17 +28,22 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   Future login() async {
     if (_formKey.currentState!.validate()) {
       var authController = ref.watch(authStateProvider.notifier);
-      // var accountType = ref.watch(accountTypeProvider);
+      var accountType = ref.watch(accountTypeProvider);
 
       authController.login(
         email: emailController.text,
         password: passwordController.text,
       );
-      // if (accountType != AccountType.individual) {
-      //   context.go(SuppliersScreen.routePath);
-      // } else {
-      //   context.go(HomeScreen.routePath);
-      // }
+      log('AccountType updated in loging: $accountType');
+
+      if (accountType == AccountType.business) {
+        ref
+            .watch(accountTypeProvider.notifier)
+            .updateAccountType(AccountType.business);
+        context.go(SuppliersScreen.routePath);
+      } else {
+        context.go(HomeScreen.routePath);
+      }
     }
   }
 
