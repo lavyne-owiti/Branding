@@ -6,6 +6,8 @@ import 'package:branding/features/product/presentation/screens/my_orders_screen.
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../widgets/bottom_nav_bar_widget.dart';
+
 class UserAccountScreen extends StatelessWidget {
   static String routePath = '/user-account';
   const UserAccountScreen({super.key});
@@ -14,6 +16,7 @@ class UserAccountScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      bottomNavigationBar: const BottomNavBarWidget(),
       body: Column(
         children: [
           Expanded(
@@ -100,12 +103,12 @@ void signOutDrawer(BuildContext context) {
         return Container(
           color: Theme.of(context).primaryColor,
           height: 150.0,
-          padding:const EdgeInsets.symmetric(horizontal: 32.0),
+          padding: const EdgeInsets.symmetric(horizontal: 32.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             mainAxisSize: MainAxisSize.max,
             children: [
-            const  Text(
+              const Text(
                 'Are you sure you want Logout ?',
                 style: TextStyle(
                   color: Colors.white,
@@ -129,16 +132,16 @@ void signOutDrawer(BuildContext context) {
                       onPressed: () => Navigator.of(context).pop(),
                     ),
                   ),
-               const   SizedBox(
+                  const SizedBox(
                     width: 20.0,
                   ),
                   Expanded(
                     child: OutlinedButton(
                       style: OutlinedButton.styleFrom(
-                        side:const BorderSide(color: Colors.white),
+                        side: const BorderSide(color: Colors.white),
                         backgroundColor: Theme.of(context).primaryColor,
                       ),
-                      child:const Text(
+                      child: const Text(
                         'Cancel',
                         style: TextStyle(
                           color: Colors.white,

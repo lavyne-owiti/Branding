@@ -1,21 +1,31 @@
 import 'package:branding/features/home/presentation/widgets/bottom_nav_bar_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../auth/presentation/controllers/auth_controller.dart';
+import '../../../auth/presentation/screens/login_screen.dart';
+import '../../../auth/presentation/state/auth_state.dart';
 import '../../../cart/presentation/screens/cart_screen.dart';
 import '../../../product/presentation/screens/products_screen.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   static String routePath = '/home';
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+     ref.listen(authStateProvider, (previous, next) async {
+      if (next is Unauthenticated) {
+        context.go(LoginScreen.routePath);
+        await ref.read(authStateProvider.notifier).logout();
+      }
+    });
     return Scaffold(
       appBar: AppBar(
         elevation: 0.2,

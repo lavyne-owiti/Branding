@@ -2,6 +2,8 @@ import 'package:branding/features/cart/presentation/screens/cart_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../home/presentation/widgets/bottom_nav_bar_widget.dart';
+
 class FavouritesScreen extends StatelessWidget {
   static String routePath = '/favourites';
   const FavouritesScreen({super.key});
@@ -32,6 +34,7 @@ class FavouritesScreen extends StatelessWidget {
           )
         ],
       ),
+      bottomNavigationBar: const BottomNavBarWidget(),
     );
   }
 }

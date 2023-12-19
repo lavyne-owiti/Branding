@@ -68,7 +68,6 @@ class BottomNavBarWidget extends StatelessWidget {
       ],
     );
   }
-  
 
   int _getCurrentIndex(
     GoRouter router,
